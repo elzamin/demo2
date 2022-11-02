@@ -11,6 +11,11 @@ public class UserService {
     private UserRepository userRepository;
 
     public User saveOrUpdateProject(User user){
+        //System.out.println("lol");
         return userRepository.save(user);
+    }
+
+    public Iterable<User> firstout(){
+        return userRepository.findAll();
     }
 }

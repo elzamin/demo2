@@ -24,4 +24,8 @@ public class UserController {
     public String hi() {
         return "Hello";
     }
+    @GetMapping("")
+    public Iterable<User> getAll(){
+        return userService.firstout();
+    }
 }
