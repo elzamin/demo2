@@ -10,8 +10,15 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User saveOrUpdateProject(User user){
+    public User saveUser(User user){
         return userRepository.save(user);
+    }
+
+    public User updateUser(Long userId, User user){
+        User _user = userRepository.findById(userId).get();
+        _user.setName(user.getName());
+        _user.setEmail(user.getEmail());
+        return userRepository.save(_user);
     }
 
     public Iterable<User> findAllUsers(){

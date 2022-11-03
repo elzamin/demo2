@@ -16,8 +16,9 @@ public class UserController {
 
     @PostMapping("")
     public ResponseEntity<?> createNewUser (@RequestBody User user){
-        User user1 = userService.saveOrUpdateProject(user);
-        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+        User user1 = userService.saveUser(user);
+        return new ResponseEntity<User>(user,
+                                        HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
@@ -28,12 +29,21 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<?> getUserById(@PathVariable Long userId){
         User user = userService.findUserById(userId);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user,
+                                    HttpStatus.OK);
+    }
+    @PatchMapping("/{userId}")
+    public ResponseEntity<?> updateUser(@PathVariable Long userId,
+                                        @RequestBody User user){
+        User _user = userService.updateUser(userId,
+                                            user);
+        return new ResponseEntity<>(_user, HttpStatus.OK);
     }
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<?> deleteUserById(@PathVariable Long userId){
         userService.deleteUserById(userId);
-        return new ResponseEntity<String>("User with ID "+ userId+" deleted",HttpStatus.OK);
+        return new ResponseEntity<String>("User with ID "+ userId+" deleted",
+                                                HttpStatus.OK);
     }
 }
