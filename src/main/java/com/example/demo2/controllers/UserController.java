@@ -1,7 +1,6 @@
 package com.example.demo2.controllers;
 
 import com.example.demo2.models.User;
-import com.example.demo2.repositories.UserRepository;
 import com.example.demo2.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,12 +19,21 @@ public class UserController {
         User user1 = userService.saveOrUpdateProject(user);
         return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
-    @GetMapping("hi")
-    public String hi() {
-        return "Hello";
-    }
-    @GetMapping("")
+
+    @GetMapping("/all")
     public Iterable<User> getAll(){
-        return userService.firstout();
+        return userService.findAllUsers();
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> getUserById(@PathVariable Long userId){
+        User user = userService.findUserById(userId);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<?> deleteUserById(@PathVariable Long userId){
+        userService.deleteUserById(userId);
+        return new ResponseEntity<String>("User with ID "+ userId+" deleted",HttpStatus.OK);
     }
 }

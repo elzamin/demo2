@@ -11,11 +11,18 @@ public class UserService {
     private UserRepository userRepository;
 
     public User saveOrUpdateProject(User user){
-        //System.out.println("lol");
         return userRepository.save(user);
     }
 
-    public Iterable<User> firstout(){
+    public Iterable<User> findAllUsers(){
         return userRepository.findAll();
+    }
+
+    public User findUserById(Long userId){
+        return userRepository.findById(userId).get();
+    }
+
+    public void deleteUserById (Long userId){
+        userRepository.deleteById(userId);
     }
 }
